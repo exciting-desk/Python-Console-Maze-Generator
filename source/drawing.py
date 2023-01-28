@@ -63,6 +63,7 @@ def initial_draw(walls):
         f_map += "\n"
 
 def draw(walls, size):
+    global f_map
     """
     Draws the final map using print()
 
@@ -70,6 +71,7 @@ def draw(walls, size):
         walls (List[List[int]]): A list of coordinates representing the walls in the maze.
         size (int): The size of the maze.
     """
+    f_map = ""
     draw_coord(size)
     initial_draw(walls)
     print(f_map)

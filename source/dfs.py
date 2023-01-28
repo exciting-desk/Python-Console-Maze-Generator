@@ -1,7 +1,7 @@
 from random import *
 import drawing
-import time
-import os
+from time import sleep
+from os import system
 
 coords = []
 last_open = []
@@ -29,7 +29,8 @@ def move(dire):
         dire (str): The direction to move in. Can be 'l' (left), 'r' (right), 'u' (up), or 'd' (down).
 
     Raises:
-        AssertionError: If the node's new position is not within the grid, is a wall, or is a visited position.
+        AssertionError: If the node's new position is not within the grid, is a wall, 
+                        or is a visited position.
     """
     if dire == 'l':
         player[1] -= 1
@@ -61,7 +62,7 @@ def find_n():
     Find the available directions (or neighbors) that the node can move in.
 
     Returns:
-        List[str]: A list of available directions. Can be 'l' (left), 'r' (right), 'u' (up), or 'd' (down).
+        List[str]: A list of available directions. 
     """
     global player
     dire = ['l', 'r', 'u', 'd']
@@ -96,10 +97,10 @@ def normal_b(neigh):
 
 def set_walls(dire):
     """
-    Set walls around the player's current position depending on the specified direction it's gonna move next to.
+    Set walls around the node's current position depending on the specified direction it's gonna move next to.
 
     Args:
-        dire (str): The direction to set walls in. Can be 'l' (left), 'r' (right), 'u' (up), or 'd' (down).
+        dire (str): The direction the node is gonna take.
     """
     global walls
     global player
@@ -131,7 +132,7 @@ def set_walls(dire):
                     walls.append(player)
                 player = old_p.copy()
 
-def generate_maze():
+def generate_maze(visualize, size):
     """
     Generate a maze.
 
@@ -163,7 +164,13 @@ def generate_maze():
             if c == 0:
                 stuck = True
 
-def draw_maze(size):
+        if visualize:
+                drawing.draw(walls, size)
+                sleep(0.5)
+                system('cls')
+        
+
+def draw_maze(size, visualize):
     """
     draw a maze with the specified number of size and columns.
 
@@ -171,5 +178,5 @@ def draw_maze(size):
         size (int): The size of the maze.
     """
     set_coords(size)
-    generate_maze()
+    generate_maze(visualize, size)
     drawing.draw(walls, size)
